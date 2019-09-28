@@ -4,6 +4,8 @@ import "./App.scss";
 
 import FormContext from "./contexts/FormContext.js";
 import SmurfContext from "./contexts/SmurfContext.js";
+import SmurfList from "./SmurfList";
+import SmurfForm from "./SmurfForm";
 
 const App = () => {
   const [smurfList, setSmurfList] = useState([]);
@@ -18,7 +20,8 @@ const App = () => {
     setFormValue({ ...formValue, [event.target.name]: event.target.value });
   };
 
-  const newSmurf = () => {
+  const newSmurf = event => {
+    event.preventDefault();
     var smurfy = { ...formValue, id: Date.now() };
     setSmurfList([...smurfList, smurfy]);
   };
@@ -35,13 +38,21 @@ const App = () => {
   }, []);
 
   return (
-    <>
+    <div className="container">
       <SmurfContext.Provider value={{ smurfList }}>
         <FormContext.Provider value={{ formValue, handleChanges, newSmurf }}>
-          <p>test</p>
+          <header>
+            <h1>Hello! And welcome to Smurf Village!</h1>
+            <p>
+              Feel free to look around and meet the smurfs, even move a new
+              smurf in!
+            </p>
+          </header>
+          <SmurfForm />
+          <SmurfList />
         </FormContext.Provider>
       </SmurfContext.Provider>
-    </>
+    </div>
   );
 };
 
