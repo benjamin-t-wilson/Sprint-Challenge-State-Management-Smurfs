@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.scss";
 
@@ -6,14 +6,6 @@ import FormContext from "./contexts/FormContext.js";
 import SmurfContext from "./contexts/SmurfContext.js";
 import SmurfList from "./SmurfList";
 import SmurfForm from "./SmurfForm";
-
-function usePrevious(value) {
-  const ref = useRef();
-  useEffect(() => {
-    ref.current = value;
-  }, [value]);
-  return ref.current;
-}
 
 const App = () => {
   const [smurfList, setSmurfList] = useState([]);
@@ -23,7 +15,6 @@ const App = () => {
     height: "",
     id: ""
   });
-  const prevState = usePrevious(smurfList);
 
   const handleChanges = event => {
     setFormValue({ ...formValue, [event.target.name]: event.target.value });
@@ -64,8 +55,10 @@ const App = () => {
               smurf in!
             </p>
           </header>
-          <SmurfForm />
-          <SmurfList />
+          <div className="sidebyside">
+            <SmurfForm />
+            <SmurfList />
+          </div>
         </FormContext.Provider>
       </SmurfContext.Provider>
     </div>
