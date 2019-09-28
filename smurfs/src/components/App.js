@@ -27,6 +27,12 @@ const App = () => {
       .post("http://localhost:3333/smurfs", smurfy)
       .then(res => {
         setSmurfList(res.data);
+        setFormValue({
+          name: "",
+          age: "",
+          height: "",
+          id: ""
+        });
       })
       .catch(err => {
         console.log("Error", err);
